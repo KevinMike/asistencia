@@ -24,7 +24,7 @@
 	<link href="css/starter-template.css" rel="stylesheet">
 
 </head>
-<body style="background:yellow;">
+<body>
 	<h2>Empleados Presentes</h2>
 	<table class="table table-striped">
 		<tr >

@@ -10,7 +10,7 @@
 	$password = $_POST['password'];
 	$query = "insert into personal values('{$dni}','{$nombre}','{$apellido}','{$fecha_nacimiento}','{$sexo}','$cod_area','$cargo','{$password}')";
 	$resultado = mysql_query($query,$enlace);
-	if (!resultado) {
+	if (!$resultado) {
 		die("No de pudo hacer el registro : ".mysql_error());
 	}
 	mysql_close();

@@ -3,6 +3,8 @@
    <meta charset="UTF-8">
    <title>Asistencia</title>
    	<link href="css/index.css" rel="stylesheet">
+   	<link href="css/bootstrap.min.css" rel="stylesheet">
+	<link href="css/starter-template.css" rel="stylesheet">
 	<script language="JavaScript"> 
 		function mueveReloj(){ 
 		   	momentoActual = new Date() 
@@ -28,9 +30,12 @@
 	<form id="form_reloj"name="form_reloj"> 
 		<input type="text" id="reloj" name="reloj" onfocus="window.document.form_reloj.reloj.blur()" size="40"> 
 	</form>
-	<form action="scripts/registro_ingreso.php" method="POST">
-			<label for="dni"><h2>Ingrese su numero de DNI :</h2></label>
-			<input type="text" name="dni">
+	<form class="form-inline" role="form" action="scripts/registro_ingreso.php" method="POST">
+			<label for="dni">Ingrese su numero de DNI : </label>
+			<input type="text" name="dni" required>
+			<label for="password">Contraseña : </label>
+			<input type="password" name="password" required>
+			<input type="submit" class="btn btn-default">
    </form>
    <iframe src="empleados_presentes.php" frameborder="0" width="100%"></iframe>
 </body>
