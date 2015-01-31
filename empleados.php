@@ -13,8 +13,21 @@
 		$opciones .= $fila['nombre'];
 		$opciones .= '</opcion>';
 	}
+	//Seleccionar los valores de los horarios
+	$resultado = mysql_query('select * from V_horarios',$enlace);
+	if(!$resultado)
+	{
+		die('No se pudo realizar la consulta : '.mysql_error());
+	}
+	$opciones1 = "";
+	while ($fila = mysql_fetch_array($resultado)) 
+	{
+		$opciones1 .= '<option value="'.$fila['cod_horario'].'">';
+		$opciones1 .= $fila['Horario'];
+		$opciones1 .= '</opcion>';
+	}
 	//Imprimir los valores de la tabla empleados
-	$resultado = mysql_query('select * from personal',$enlace);
+	$resultado = mysql_query('select * from V_empleados',$enlace);
 	if(!$resultado)
 	{
 		die('No se pudo realizar la consulta : '.mysql_error());
@@ -22,13 +35,24 @@
 	$opciones2 = "";
 	while ($fila = mysql_fetch_array($resultado)) 
 	{
-		$opciones2 .= '<tr><td>'.$fila['dni'].'</td><td>';
-		$opciones2 .= $fila['nombre'].'</td><td>';
-		$opciones2 .= $fila['apellido'].'</td><td>';
-		$opciones2 .= $fila['fecha_nacimiento'].'</td><td>';
-		$opciones2 .= $fila['sexo'].'</td><td>';
-		$opciones2 .= $fila['area_cod_area'].'</td><td>';
-		$opciones2 .= $fila['cargo'].'</td><td>';
+		$opciones2 .= "<tr><td><img src='";
+		if ($fila['tipo'] == '')  
+		{
+			$opciones2 .= "img/sin_avatar.jpg";	
+		}
+		else
+		{
+			$opciones2 .= 'scripts/visualizar_imagen.php?dni='.$fila['dni'];
+		}
+		$opciones2 .= "' height = 60px ><td>".$fila['dni']."</td><td>";
+		$opciones2 .= $fila['nombre']."</td><td>";
+		$opciones2 .= $fila['apellido']."</td><td>";
+		$opciones2 .= $fila['fecha_nacimiento']."</td><td>";
+		$opciones2 .= $fila['sexo']."</td><td>";
+		$opciones2 .= $fila['area']."</td><td>";
+		$opciones2 .= $fila['cargo']."</td><td>";
+		$opciones2 .= $fila['Horario']."</td><td>";
+		$opciones2 .= $fila['dias']."</td><td>";
 		$opciones2 .= "<a href='#.php?dni={$fila['dni']}'>Editar</a></td><td>";
 		$opciones2 .= "<a href='scripts/eliminar_persona.php?dni={$fila['dni']}'>Eliminar</a></td></tr>";
 	}
@@ -45,16 +69,13 @@
 <body>
 	<h1>Ingrese sus datos</h1>
 	<form class="form-horizontal" role="form" action="scripts/registro_empleado.php" method="POST" enctype="multipart/form-data">
-
-				<div class="form-group">
-
-			<label for="DNI">Ingrese el DNI</label>
-				
-				<input type="text" name="DNI" required maxlength="8">
-				
-				</div>
-
 			<table class="table"> 
+			<tr>	
+				<div class="form-group">
+					<td><label for="DNI">Ingrese el DNI</label></td>
+					<td><input type="text" name="DNI" required maxlength="8"></td>
+				</div>
+			</tr>
 			<tr>
 				<td><label for="nombre">Nombre</label></td>
 				<td><input type="text" name="nombre" required maxlength="35"></td>
@@ -83,17 +104,21 @@
 			<tr>
 				<td><label for="horario">Horario</label></td>
 				<td><select name="horario">
-					<option value=""></option>
-				</select>		<a href="">Agregar Nuevo Horario</a></td>
-				<div class="checkbox">
-					<label><input type="checkbox" name="Sunday" value="1"> Domingo<br></label>
-					<label><input type="checkbox" name="Monday" value="1r" checked> Lunes<br></label>
-					<label><input type="checkbox" name="Tuesday" value="1"> Martes<br></label>
-					<label><input type="checkbox" name="Wednesday" value="1"> Miercoles<br></label>
-					<label><input type="checkbox" name="Thursday" value="1" checked> Jueves<br></label>
-					<label><input type="checkbox" name="Friday" value="1"> Viernes<br></label>
-					<label><input type="checkbox" name="Saturday" value="1"> Sábado<br></label>
+					<?php echo $opciones1;?>
+				</select>		<a href="horario.php">Agregar Nuevo Horario</a></td>
+			</tr>
+			<tr>
+				<td><label for="dias">Dias Laborables</label></td>
+				<td><div class="checkbox" name="dias">
+					<label><input type="checkbox" name="Sunday" value="1"> Domingo<br></label> <br>
+					<label><input type="checkbox" name="Monday" value="1" > Lunes<br></label> <br>
+					<label><input type="checkbox" name="Tuesday" value="1"> Martes<br></label> <br>
+					<label><input type="checkbox" name="Wednesday" value="1"> Miercoles<br></label> <br>
+					<label><input type="checkbox" name="Thursday" value="1" > Jueves<br></label> <br>
+					<label><input type="checkbox" name="Friday" value="1"> Viernes<br></label> <br>
+					<label><input type="checkbox" name="Saturday" value="1"> Sábado<br></label> 
 				</div>
+				<br><input type="reset" class="btn btn-default"></td>
 			</tr>
 			<tr>
 				<td><label for="password">Contraseña de ingreso</label></td>
@@ -115,35 +140,52 @@
 		<input type="submit" class="btn btn-success" value="Registrar">
 		<input class="btn btn-primary" type="reset">
 	</form>
-	ejemlpoo
-	<form role="form">
-  <div class="form-group">
-    <label for="ejemplo_email_1">Email</label>
-    <input type="email" class="form-control" id="ejemplo_email_1"
-           placeholder="Introduce tu email">
-  </div>
-  <div class="form-group">
-    <label for="ejemplo_password_1">Contraseña</label>
-    <input type="password" class="form-control" id="ejemplo_password_1" 
-           placeholder="Contraseña">
-  </div>
-  <div class="form-group">
-    <label for="ejemplo_archivo_1">Adjuntar un archivo</label>
-    <input type="file" id="ejemplo_archivo_1">
-    <p class="help-block">Ejemplo de texto de ayuda.</p>
-  </div>
-  <div class="checkbox">
-    <label>
-      <input type="checkbox"> Activa esta casilla
-    </label>
-  </div>
-  <button type="submit" class="btn btn-default">Enviar</button>
-</form>
-	ejemplo
-
+	<script type="text/javascript">
+		$(document).ready(function(){
+	                                
+	        var consulta;
+	                                                                          
+	         //hacemos focus al campo de búsqueda
+	        $("#busqueda").focus();
+	                                                                                                    
+	        //comprobamos si se pulsa una tecla
+	        $("#busqueda").keyup(function(e){
+	                                     
+	              //obtenemos el texto introducido en el campo de búsqueda
+	              consulta = $("#busqueda").val();
+	                                                                           
+	              //hace la búsqueda
+	                                                                                  
+	              $.ajax({
+	                    type: "POST",
+	                    url: "buscar.php",
+	                    data: "b="+consulta,
+	                    dataType: "html",
+	                    beforeSend: function(){
+	                          //imagen de carga
+	                          $("#resultado").html("<p align='center'><img src='ajax-loader.gif' /></p>");
+	                    },
+	                    error: function(){
+	                          alert("error petición ajax");
+	                    },
+	                    success: function(data){                                                    
+	                          $("#resultado").empty();
+	                          $("#resultado").append(data);
+	                                                             
+	                    }
+	              });
+	                                                                                  
+	        });
+	                                                                   
+	});
+	</script>
+	<!--<input type="text" id="busqueda" />-->
+             
+	<div id="resultado"></div>
 	<h2>Personal Registrados</h2>
 	<table class="table table-striped">
 		<tr >
+			<th>Foto</th>
 			<th>DNI</th>
 			<th>Nombres</th>
 			<th>Apellidos</th>
@@ -151,6 +193,8 @@
 			<th>Sexo</th>
 			<th>Area</th>
 			<th>Cargo</th>
+			<th>Horario</th>
+			<th>Dias Laborables</th>
 			<th>Eliminar Registro</th>
 			<th>Actualizar datos</th>
 		</tr>

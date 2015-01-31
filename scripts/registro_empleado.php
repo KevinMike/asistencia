@@ -14,7 +14,13 @@
 	$cod_area = $_POST['area'];
 	$cargo = $_POST['cargo'];
 	$password = $_POST['password'];
-
+	$lunes = $_POST['Monday']:
+	$martes = $_POST['Tuesday']:
+	$miercoles = $_POST['Wednesday']:
+	$jueves = $_POST['Thursday']:
+	$viernes = $_POST['Friday']:
+	$sabado = $_POST['Saturday']:
+	$domingo = $_POST['Sunday']:
 // Los posible valores que puedes obtener de la imagen son:
 //echo "<BR>".$_FILES["userfile"]["name"];      //nombre del archivo
 //echo "<BR>".$_FILES["userfile"]["type"];      //tipo

@@ -6,6 +6,7 @@
    	<link href="css/bootstrap.min.css" rel="stylesheet">
 	<link href="css/starter-template.css" rel="stylesheet">
 	<link href="./css/bootstrap.css" rel="stylesheet">
+	<link href='http://fonts.googleapis.com/css?family=Droid+Serif' rel='stylesheet' type='text/css'>
 	<script language="JavaScript"> 
 		function mueveReloj(){ 
 		   	momentoActual = new Date() 
