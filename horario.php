@@ -60,7 +60,10 @@
 		</tr>
 		<?php echo $tabla;?>	
 		</table>
-
+	<form action="empleados.php" method="get">
+		<input  type="submit" class="btn btn-default" value="Regresar al Registro de Empleados">
+		</br>
+	</form>
 </body>
 </html>
 

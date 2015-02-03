@@ -44,7 +44,7 @@
 		{
 			$opciones2 .= 'scripts/visualizar_imagen.php?dni='.$fila['dni'];
 		}
-		$opciones2 .= "' height = 60px ><td>".$fila['dni']."</td><td>";
+		$opciones2 .= "' width = 80px ><td>".$fila['dni']."</td><td>";
 		$opciones2 .= $fila['nombre']."</td><td>";
 		$opciones2 .= $fila['apellido']."</td><td>";
 		$opciones2 .= $fila['fecha_nacimiento']."</td><td>";
@@ -65,9 +65,10 @@
 	<title>Registrar Empleados</title>
 	<link href="css/bootstrap.min.css" rel="stylesheet">
 	<link href="css/starter-template.css" rel="stylesheet">
+	<script src="js/jquery-1.11.2.min.js"type="text/javascript"></script>
 </head>
 <body>
-	<h1>Ingrese sus datos</h1>
+	<h1>Registro del Personal</h1>
 	<form class="form-horizontal" role="form" action="scripts/registro_empleado.php" method="POST" enctype="multipart/form-data">
 			<table class="table"> 
 			<tr>	
@@ -110,13 +111,13 @@
 			<tr>
 				<td><label for="dias">Dias Laborables</label></td>
 				<td><div class="checkbox" name="dias">
-					<label><input type="checkbox" name="Sunday" value="1"> Domingo<br></label> <br>
-					<label><input type="checkbox" name="Monday" value="1" > Lunes<br></label> <br>
-					<label><input type="checkbox" name="Tuesday" value="1"> Martes<br></label> <br>
-					<label><input type="checkbox" name="Wednesday" value="1"> Miercoles<br></label> <br>
-					<label><input type="checkbox" name="Thursday" value="1" > Jueves<br></label> <br>
-					<label><input type="checkbox" name="Friday" value="1"> Viernes<br></label> <br>
-					<label><input type="checkbox" name="Saturday" value="1"> Sábado<br></label> 
+					<label><input type="checkbox" name="Sunday" value="1" falsevalue="0"> Domingo<br></label> <br>
+					<label><input type="checkbox" name="Monday" value="1" falsevalue="0"> Lunes<br></label> <br>
+					<label><input type="checkbox" name="Tuesday" value="1" falsevalue="0"> Martes<br></label> <br>
+					<label><input type="checkbox" name="Wednesday" value="1" falsevalue="0"> Miercoles<br></label> <br>
+					<label><input type="checkbox" name="Thursday" value="1" falsevalue="0"> Jueves<br></label> <br>
+					<label><input type="checkbox" name="Friday" value="1" falsevalue="0"> Viernes<br></label> <br>
+					<label><input type="checkbox" name="Saturday" value="1" falsevalue="0"> Sábado<br></label> 
 				</div>
 				<br><input type="reset" class="btn btn-default"></td>
 			</tr>
@@ -140,6 +141,7 @@
 		<input type="submit" class="btn btn-success" value="Registrar">
 		<input class="btn btn-primary" type="reset">
 	</form>
+
 	<script type="text/javascript">
 		$(document).ready(function(){
 	                                
@@ -150,7 +152,7 @@
 	                                                                                                    
 	        //comprobamos si se pulsa una tecla
 	        $("#busqueda").keyup(function(e){
-	                                     
+                  
 	              //obtenemos el texto introducido en el campo de búsqueda
 	              consulta = $("#busqueda").val();
 	                                                                           
@@ -158,8 +160,8 @@
 	                                                                                  
 	              $.ajax({
 	                    type: "POST",
-	                    url: "buscar.php",
-	                    data: "b="+consulta,
+	                    url: "scripts/buscar.php",
+	                    data: "buscardni="+consulta,
 	                    dataType: "html",
 	                    beforeSend: function(){
 	                          //imagen de carga
@@ -179,10 +181,15 @@
 	                                                                   
 	});
 	</script>
-	<!--<input type="text" id="busqueda" />-->
-             
-	<div id="resultado"></div>
-	<h2>Personal Registrados</h2>
+	<h2>Busqueda del Personal por DNI</h2>
+	<form class="form">
+		<label for="buscadni">Ingrese el DNI : </label>
+		<input type="text" id="busqueda" name="buscadni" maxlength="8"/>
+	</form>
+    <table class="table table-striped" id="resultado"></table>
+
+
+	<h2>Personal Registrado</h2>
 	<table class="table table-striped">
 		<tr >
 			<th>Foto</th>

@@ -14,13 +14,14 @@
 	$cod_area = $_POST['area'];
 	$cargo = $_POST['cargo'];
 	$password = $_POST['password'];
-	$lunes = $_POST['Monday']:
-	$martes = $_POST['Tuesday']:
-	$miercoles = $_POST['Wednesday']:
-	$jueves = $_POST['Thursday']:
-	$viernes = $_POST['Friday']:
-	$sabado = $_POST['Saturday']:
-	$domingo = $_POST['Sunday']:
+	$lunes = $_POST['Monday'];
+	$martes = $_POST['Tuesday'];
+	$miercoles = $_POST['Wednesday'];
+	$jueves = $_POST['Thursday'];
+	$viernes = $_POST['Friday'];
+	$sabado = $_POST['Saturday'];
+	$domingo = $_POST['Sunday'];
+	$cod_horario = $_POST['horario'];
 // Los posible valores que puedes obtener de la imagen son:
 //echo "<BR>".$_FILES["userfile"]["name"];      //nombre del archivo
 //echo "<BR>".$_FILES["userfile"]["type"];      //tipo
@@ -44,7 +45,9 @@
 	        $imagenEscapes=$mysqli->real_escape_string(file_get_contents($_FILES["userfile"]["tmp_name"]));
 
 	        # Agregamos la imagen a la base de datos
-	        $consulta = "INSERT INTO personal(dni,nombre,apellido,fecha_nacimiento,sexo,area_cod_area,cargo,password,tipo,foto) VALUES('{$dni}','{$nombre}','{$apellido}','{$fecha_nacimiento}',b'{$sexo}','$cod_area','$cargo','{$password}','{$_FILES["userfile"]["type"]}','{$imagenEscapes}')";
+	        //$consulta = "INSERT INTO personal(dni,nombre,apellido,fecha_nacimiento,sexo,area_cod_area,cargo,password,tipo,foto) VALUES('{$dni}','{$nombre}','{$apellido}','{$fecha_nacimiento}',b'{$sexo}','$cod_area','$cargo','{$password}','{$_FILES["userfile"]["type"]}','{$imagenEscapes}')";
+	        $consulta = "call SP_Ingresar_Empleado(
+'{$dni}','{$nombre}','{$apellido}','{$fecha_nacimiento}',b'{$sexo}','{$cod_area}','{$cargo}','{$password}','{$_FILES["userfile"]["type"]}','{$imagenEscapes}','{$cod_horario}',b'{$domingo}',b'{$lunes}',b'{$martes}',b'{$miercoles}',b'{$jueves}',b'{$viernes}',b'{$sabado}');";
 	        //$sql="INSERT INTO `imagephp` (anchura,altura,tipo,imagen) VALUES (".$info[0].",".$info[1].",'".$_FILES["userfile"]["type"]."','".$imagenEscapes."')";
 	        $mysqli->query($consulta);
 
@@ -60,7 +63,8 @@
 	}
 	else
 	{
-		$consulta = "insert into personal(dni,nombre,apellido,fecha_nacimiento,sexo,area_cod_area,cargo,password) values('{$dni}','{$nombre}','{$apellido}','{$fecha_nacimiento}',b'{$sexo}','$cod_area','$cargo','{$password}')";
+		 $consulta = "call SP_Ingresar_Empleado(
+'{$dni}','{$nombre}','{$apellido}','{$fecha_nacimiento}',b'{$sexo}','{$cod_area}','{$cargo}','{$password}','',null,'{$cod_horario}',b'{$domingo}',b'{$lunes}',b'{$martes}',b'{$miercoles}',b'{$jueves}',b'{$viernes}',b'{$sabado}');";
 		//$resultado = mysql_query($query,$enlace);
 		//echo $consulta;
 		$mysqli->query($consulta);
