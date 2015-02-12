@@ -6,6 +6,7 @@
 	$regreso = "";
 	$salida = "";
 	//Recibiendo parametros del formulario
+	$cod_horario = $_POST['variable'];
 	$llegada = $_REQUEST['hora_ingreso'];
 	$suspender = $_REQUEST['suspende'];
 	$regreso = $_REQUEST['regresar'];
@@ -16,7 +17,7 @@
 		echo "variables intermedias con datos";
 		if ( $salida > $regreso && $regreso > $suspender && $suspender > $llegada)
 		{
-			$query = "call SP_Ingresar_Horario(0,'{$llegada}','{$suspender}','{$regreso}','{$salida}')";
+			$query = "call SP_Ingresar_Horario({$cod_horario},'{$llegada}','{$suspender}','{$regreso}','{$salida}')";
 				mysql_query($query);
 				mysql_close();
 				header('Location:../horario.php');

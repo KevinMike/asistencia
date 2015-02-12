@@ -53,8 +53,46 @@
 		$opciones2 .= $fila['cargo']."</td><td>";
 		$opciones2 .= $fila['Horario']."</td><td>";
 		$opciones2 .= $fila['dias']."</td><td>";
-		$opciones2 .= "<a href='#.php?dni={$fila['dni']}'>Editar</a></td><td>";
+		$opciones2 .= "<a href='empleados.php?dni={$fila['dni']}'>Editar</a></td><td>";
 		$opciones2 .= "<a href='scripts/eliminar_persona.php?dni={$fila['dni']}'>Eliminar</a></td></tr>";
+	}
+	//Edicion de los Empleados
+	if (!empty($_GET['dni'])) 
+	{
+	// traemos la noticia
+		Echo "<B><h2>EDITANTO AL EMPLEADO DE DNI <b>".$_GET['dni']."</h2>";
+		$query = "select * from V_edicion_empleados where dni = '{$_GET['dni']}' Limit 1";
+		$respuesta = mysql_query($query);
+		while ($fila = mysql_fetch_array($respuesta)) 
+		{
+			echo "<script type='text/javascript'>var dni =  ".$fila['dni'].";</script>";
+			echo "<script type='text/javascript'>var nombre = '".$fila['nombre']."';</script>";
+			echo "<script type='text/javascript'>var apellido = '".$fila['apellido']."';</script>";
+			echo "<script type='text/javascript'>var fecha_nacimiento = '".$fila['fecha_nacimiento']."';</script>";
+			echo "<script type='text/javascript'>var sexo = '".$fila['sexo']."';</script>";
+			echo "<script type='text/javascript'>var area =  ".$fila['cod_area'].";</script>";
+			echo "<script type='text/javascript'>var cargo = '".$fila['cargo']."';</script>";
+			echo "<script type='text/javascript'>var Horario = '".$fila['Horario']."';</script>";
+			echo "<script type='text/javascript'>var Sunday = '".$fila['Sunday']."';</script>";
+			echo "<script type='text/javascript'>var Monday =  ".$fila['Monday'].";</script>";
+			echo "<script type='text/javascript'>var Tuesday = '".$fila['Tuesday']."';</script>";
+			echo "<script type='text/javascript'>var Wednesday = '".$fila['Wednesday']."';</script>";
+			echo "<script type='text/javascript'>var Thursday = '".$fila['Thursday']."';</script>";
+			echo "<script type='text/javascript'>var Friday =  ".$fila['Friday'].";</script>";
+			echo "<script type='text/javascript'>var Saturday = '".$fila['Saturday']."';</script>";
+			//echo "<script type='text/javascript'>$(document).ready(function(){$('#DNI').val(dni);$('#nombre').val(nombre);$('#apellido').val(apellido);$('#fecha_nacimiento').val(fecha_nacimiento);$('#sexo').val(sexo);$('#area').val(area);$('#cargo').val(cargo);$('#horario').val(Horario);});</script>"
+		}
+	}
+	else
+	{
+		echo "<script type='text/javascript'>var dni = '';</script>";
+		echo "<script type='text/javascript'>var nombre = '';</script>";
+		echo "<script type='text/javascript'>var apellido = '';</script>";
+		echo "<script type='text/javascript'>var fecha_nacimiento = '';</script>";
+		echo "<script type='text/javascript'>var sexo = '';</script>";
+		echo "<script type='text/javascript'>var area =  '';</script>";
+		echo "<script type='text/javascript'>var cargo = '';</script>";
+		echo "<script type='text/javascript'>var Horario = '';</script>";
 	}
 	mysql_close();
 ?>
@@ -69,61 +107,82 @@
 </head>
 <body>
 	<h1>Registro del Personal</h1>
+		<script type='text/javascript'>
+			$(document).ready(function()
+			{
+				$('#DNI').val(dni);
+				$('#nombre').val(nombre);
+				$('#apellido').val(apellido);
+				$('#fecha_nacimiento').val(fecha_nacimiento);
+				$('#sexo').val(sexo);
+				$('#area').val(area);
+				/*$('#Sunday').val(Sunday);
+				$('#Monday').val(Monday);
+				$('#Tuesday').val(Tuesday);
+				$('#Wednesday').val(Wednesday);
+				$('#Thursday').val(Thursday);
+				$('#Friday').val(Friday);
+				$('#Saturday').val(Saturday);
+				$('#password').val(password);*/
+				$('#cargo').val(cargo);
+				$('#horario').val(Horario);
+			});
+		</script>
 	<form class="form-horizontal" role="form" action="scripts/registro_empleado.php" method="POST" enctype="multipart/form-data">
 			<table class="table"> 
 			<tr>	
 				<div class="form-group">
 					<td><label for="DNI">Ingrese el DNI</label></td>
-					<td><input type="text" name="DNI" required maxlength="8"></td>
+					<td><input id = "DNI" type="text" name="DNI" required maxlength="8"></td>
 				</div>
 			</tr>
 			<tr>
 				<td><label for="nombre">Nombre</label></td>
-				<td><input type="text" name="nombre" required maxlength="35"></td>
+				<td><input id = "nombre" type="text" name="nombre" required maxlength="35"></td>
 			</tr>
 			<tr>
 				<td><label for="apellido">Apellidos</label></td>
-				<td><input type="text" name="apellido" required maxlength="35"></td>
+				<td><input id = "apellido" type="text" name="apellido" required maxlength="35"></td>
 			</tr>
 			<tr>
 				<td><label for="fecha_nacimiento">Fecha de Nacimiento</label></td>
-				<td><input type="date" name="fecha_nacimiento" required></td>
+				<td><input id = "fecha_nacimiento" type="date" name="fecha_nacimiento" required></td>
 			</tr>
 			<tr>
 				<td><label for="sexo">Sexo</label></td>
-				<td><select name="sexo" required>
+				<td><select id = "sexo" name="sexo" required>
 					<option value="1">Hombre</option>
 					<option value="0">Mujer</option>
 				</select></td>
 			</tr>
 			<tr>
 				<td><label for="area">Área</label></td>
-				<td><select  name="area" required>
+				<td><select  id = "area" name="area" required>
 					<?php echo $opciones; ?>
 				</select></td>
 			</tr>
 			<tr>
 				<td><label for="horario">Horario</label></td>
-				<td><select name="horario">
+				<td><select id = "horario" name="horario">
 					<?php echo $opciones1;?>
 				</select>		<a href="horario.php">Agregar Nuevo Horario</a></td>
 			</tr>
 			<tr>
 				<td><label for="dias">Dias Laborables</label></td>
-				<td><div class="checkbox" name="dias">
-					<label><input type="checkbox" name="Sunday" value="1" falsevalue="0"> Domingo<br></label> <br>
-					<label><input type="checkbox" name="Monday" value="1" falsevalue="0"> Lunes<br></label> <br>
-					<label><input type="checkbox" name="Tuesday" value="1" falsevalue="0"> Martes<br></label> <br>
-					<label><input type="checkbox" name="Wednesday" value="1" falsevalue="0"> Miercoles<br></label> <br>
-					<label><input type="checkbox" name="Thursday" value="1" falsevalue="0"> Jueves<br></label> <br>
-					<label><input type="checkbox" name="Friday" value="1" falsevalue="0"> Viernes<br></label> <br>
-					<label><input type="checkbox" name="Saturday" value="1" falsevalue="0"> Sábado<br></label> 
+				<td><div id = "dias" class="checkbox" name="dias">
+					<label><input type="checkbox" id="Sunday" name="Sunday" value="1" falsevalue="0"> Domingo<br></label> <br>
+					<label><input type="checkbox" id="Monday" name="Monday" value="1" falsevalue="0"> Lunes<br></label> <br>
+					<label><input type="checkbox" id="Tuesday" name="Tuesday" value="1" falsevalue="0"> Martes<br></label> <br>
+					<label><input type="checkbox" id="Wednesday" name="Wednesday" value="1" falsevalue="0"> Miercoles<br></label> <br>
+					<label><input type="checkbox" id="Thursday" name="Thursday" value="1" falsevalue="0"> Jueves<br></label> <br>
+					<label><input type="checkbox" id="Friday" name="Friday" value="1" falsevalue="0"> Viernes<br></label> <br>
+					<label><input type="checkbox" id="Saturday" name="Saturday" value="1" falsevalue="0"> Sábado<br></label> 
 				</div>
 				<br><input type="reset" class="btn btn-default"></td>
 			</tr>
 			<tr>
 				<td><label for="password">Contraseña de ingreso</label></td>
-				<td><input type="password" name="password" required maxlength="15"></td>
+				<td><input id="password"type="password" name="password" required maxlength="15"></td>
 			</tr>
 			<!--<tr>
 				<td><label for="password2">Vuelva a escribir su contraseña</label></td>
@@ -131,7 +190,7 @@
 			</tr>-->
 			<tr>
 				<td><label for="cargo">Cargo</label></td>
-				<td><input type="text" name="cargo"required maxlength="15"></td>
+				<td><input id="cargo" type="text" name="cargo"required maxlength="15"></td>
 			</tr>
 			<tr>
 				 <td><label for="userfile">Foto</label></td>   
