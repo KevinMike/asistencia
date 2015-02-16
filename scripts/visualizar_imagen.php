@@ -1,5 +1,5 @@
 <?php
-	//DATOS PARA LA CONEXION
+	/*//DATOS PARA LA CONEXION
 	$servidor = "127.0.0.1:3306";
 	$usuario = "root";
 	$password = "";
@@ -8,7 +8,8 @@
 	$mysqli=new mysqli($servidor,$usuario,$password,$bd_name);
 	if (mysqli_connect_errno()) {
 	    die("Error al conectar: ".mysqli_connect_error());
-	}
+	}*/
+	include('conexion2.php');
 	# Buscamos la imagen a mostrar
 	$result=$mysqli->query("SELECT * FROM personal WHERE dni='{$_GET['dni']}'");
 	$row=$result->fetch_array(MYSQLI_ASSOC);
