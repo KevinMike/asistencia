@@ -39,7 +39,7 @@
 	<link rel="stylesheet" href="css/empleados_presentes.css">
 </head>
 <body>
-	<h2>Empleados Presentes</h2>
+
 	<!--<table class="table table-striped">
 		<tr >
 			<th>DNI</th>

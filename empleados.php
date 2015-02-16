@@ -57,10 +57,11 @@
 		$opciones2 .= "<a href='scripts/eliminar_persona.php?dni={$fila['dni']}'>Eliminar</a></td></tr>";
 	}
 	//Edicion de los Empleados
+	$aviso = "";
 	if (!empty($_GET['dni'])) 
 	{
 	// traemos la noticia
-		Echo "<B><h2>EDITANTO AL EMPLEADO DE DNI <b>".$_GET['dni']."</h2>";
+		$aviso= "<B><h4>EDITANTO AL EMPLEADO DE DNI <b>".$_GET['dni']."</h4>";
 		$query = "select * from V_edicion_empleados where dni = '{$_GET['dni']}' Limit 1";
 		$respuesta = mysql_query($query);
 		while ($fila = mysql_fetch_array($respuesta)) 
@@ -103,10 +104,27 @@
 	<title>Registrar Empleados</title>
 	<link href="css/bootstrap.min.css" rel="stylesheet">
 	<link href="css/starter-template.css" rel="stylesheet">
+	<link href="css/panel.css" rel="stylesheet">
 	<script src="js/jquery-1.11.2.min.js"type="text/javascript"></script>
 </head>
 <body>
+	<header>
+		<figure>
+			<img src="img/inei.png" width="120px" alt="">
+		</figure>
+		<div class="contenedor">
+			<div class="titulo">
+				<h1>SISTEMA DE ASISTENCIA</h1>
+			</div>
+			<nav>
+				<li><a href="index.php">Inicio</a></li>
+				<li><a href="editar.php">Edicion y Reporte de Registros</a></li>
+				<li><a href="empleados.php">Gestionar Personal</a></li>
+			</nav>
+		</div>
+	</header>
 	<h1>Registro del Personal</h1>
+	<?php echo $aviso;?>
 		<script type='text/javascript'>
 			$(document).ready(function()
 			{
@@ -133,43 +151,43 @@
 			<tr>	
 				<div class="form-group">
 					<td><label for="DNI">Ingrese el DNI</label></td>
-					<td><input id = "DNI" type="text" name="DNI" required maxlength="8"></td>
+					<td><input class="form-control" id = "DNI" type="text" name="DNI" required maxlength="8"></td>
 				</div>
 			</tr>
 			<tr>
 				<td><label for="nombre">Nombre</label></td>
-				<td><input id = "nombre" type="text" name="nombre" required maxlength="35"></td>
+				<td><input class="form-control" id = "nombre" type="text" name="nombre" required maxlength="35"></td>
 			</tr>
 			<tr>
 				<td><label for="apellido">Apellidos</label></td>
-				<td><input id = "apellido" type="text" name="apellido" required maxlength="35"></td>
+				<td><input class="form-control" id = "apellido" type="text" name="apellido" required maxlength="35"></td>
 			</tr>
 			<tr>
 				<td><label for="fecha_nacimiento">Fecha de Nacimiento</label></td>
-				<td><input id = "fecha_nacimiento" type="date" name="fecha_nacimiento" required></td>
+				<td><input class="form-control" id = "fecha_nacimiento" type="date" name="fecha_nacimiento" required></td>
 			</tr>
 			<tr>
 				<td><label for="sexo">Sexo</label></td>
-				<td><select id = "sexo" name="sexo" required>
+				<td><select class="form-control" id = "sexo" name="sexo" required>
 					<option value="1">Hombre</option>
 					<option value="0">Mujer</option>
 				</select></td>
 			</tr>
 			<tr>
 				<td><label for="area">Área</label></td>
-				<td><select  id = "area" name="area" required>
+				<td><select class="form-control" id = "area" name="area" required>
 					<?php echo $opciones; ?>
 				</select></td>
 			</tr>
 			<tr>
 				<td><label for="horario">Horario</label></td>
-				<td><select id = "horario" name="horario">
+				<td><select class="form-control" id = "horario" name="horario">
 					<?php echo $opciones1;?>
 				</select>		<a href="horario.php">Agregar Nuevo Horario</a></td>
 			</tr>
 			<tr>
 				<td><label for="dias">Dias Laborables</label></td>
-				<td><div id = "dias" class="checkbox" name="dias">
+				<td><div  id = "dias" class="checkbox" name="dias">
 					<label><input type="checkbox" id="Sunday" name="Sunday" value="1" falsevalue="0"> Domingo<br></label> <br>
 					<label><input type="checkbox" id="Monday" name="Monday" value="1" falsevalue="0"> Lunes<br></label> <br>
 					<label><input type="checkbox" id="Tuesday" name="Tuesday" value="1" falsevalue="0"> Martes<br></label> <br>
@@ -178,11 +196,11 @@
 					<label><input type="checkbox" id="Friday" name="Friday" value="1" falsevalue="0"> Viernes<br></label> <br>
 					<label><input type="checkbox" id="Saturday" name="Saturday" value="1" falsevalue="0"> Sábado<br></label> 
 				</div>
-				<br><input type="reset" class="btn btn-default"></td>
+				<br><input class="form-control" type="reset" class="btn btn-default"></td>
 			</tr>
 			<tr>
 				<td><label for="password">Contraseña de ingreso</label></td>
-				<td><input id="password"type="password" name="password" required maxlength="15"></td>
+				<td><input class="form-control" id="password"type="password" name="password" required maxlength="15"></td>
 			</tr>
 			<!--<tr>
 				<td><label for="password2">Vuelva a escribir su contraseña</label></td>
@@ -190,7 +208,7 @@
 			</tr>-->
 			<tr>
 				<td><label for="cargo">Cargo</label></td>
-				<td><input id="cargo" type="text" name="cargo"required maxlength="15"></td>
+				<td><input class="form-control" id="cargo" type="text" name="cargo"required maxlength="15"></td>
 			</tr>
 			<tr>
 				 <td><label for="userfile">Foto</label></td>   
@@ -207,7 +225,7 @@
 	        var consulta;
 	                                                                          
 	         //hacemos focus al campo de búsqueda
-	        $("#busqueda").focus();
+	        //$("#busqueda").focus();
 	                                                                                                    
 	        //comprobamos si se pulsa una tecla
 	        $("#busqueda").keyup(function(e){

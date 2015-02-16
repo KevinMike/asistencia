@@ -60,7 +60,7 @@
                         $opciones2 .= $fila['cargo']."</td><td>";
                         $opciones2 .= $fila['Horario']."</td><td>";
                         $opciones2 .= $fila['dias']."</td><td>";
-                        $opciones2 .= "<a href='#.php?dni={$fila['dni']}'>Editar</a></td><td>";
+                        $opciones2 .= "<a href='empleados.php?dni={$fila['dni']}'>Editar</a></td><td>";
                         $opciones2 .= "<a href='scripts/eliminar_persona.php?dni={$fila['dni']}'>Eliminar</a></td></tr>";
                   }
                   mysql_close();

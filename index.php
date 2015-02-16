@@ -2,10 +2,9 @@
 <head> 
    <meta charset="UTF-8">
    <title>Asistencia</title>
-   	<link href="css/index.css" rel="stylesheet">
+	<link href="css/normalize.css" rel="stylesheet">
    	<link href="css/bootstrap.min.css" rel="stylesheet">
-	<link href="css/starter-template.css" rel="stylesheet">
-	<link href="./css/bootstrap.css" rel="stylesheet">
+   	<link href="css/index.css" rel="stylesheet">
 	<link href='http://fonts.googleapis.com/css?family=Droid+Serif' rel='stylesheet' type='text/css'>
 	<script language="JavaScript"> 
 		function mueveReloj(){ 
@@ -30,7 +29,10 @@
 </head> 
 
 <body onload="mueveReloj()" > 
-	<header><img src="img/inei.png" height="50px" alt=""><h1>SISTEMA DE CONTROL DE ASISTENCIA</h1></header>
+	<header>
+		<img src="img/inei.png" height="50px" alt="">
+		<h1>SISTEMA DE CONTROL DE ASISTENCIA</h1>
+	</header>
 	<div class="contenedor">
 		<div class="datos">
 			<form id="form_reloj"name="form_reloj"> 

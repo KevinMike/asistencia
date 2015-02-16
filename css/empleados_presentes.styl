@@ -3,23 +3,31 @@ azul_fuerte = #074687;
 gris = #484848;
 morado = #9190F7;
 celeste = #44D2FB;
+gris_claro = #F2F2F2;
+verde = #AFE900;
+verde_claro = #C1E946;
+verde_oscuro = #8FAD34;
+verde_intermedio = #769D00
 body
-	background-color azul
-	margin 1em
-
+	background-color verde_claro
+	margin 0.5em
+	h4
+		text-align center
 .contenedor
 	width 100%
 	margin 0
-	padding 1em
+	//padding 1em
 	.grilla
-		background-color morado
-		border-radius 1em
-		box-shadow: 2px 2px 5px gris;
+		background-color verde_intermedio
+		boder-top 2px solid verde_claro
+		border-bottom 2px solid verde_claro
+		border-radius 0.5em
+		//box-shadow: 2px 2px 5px gris;
 		overflow hidden
 		width 100%
 		height 100%
-		margin 1em 0 1em 0
-		padding 1em
+		//margin 0 1em
+		padding 0.5em
 		figure
 			img
 				float left
@@ -30,6 +38,7 @@ body
 			margin 0 0 0 160px
 			h1
 				margin 0
+				
 			h2
 				color red
 				margin 0

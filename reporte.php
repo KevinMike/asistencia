@@ -114,7 +114,7 @@
 		     $this->Cell(160,5,$data2['Horario'],0,'LR');
 		     $this->Ln(10);
 		     $this->SetFont('Arial','B',12);
-		     $this->Cell(0,8,"INFORME DE ASISTENCIA DESDE ".$desde." HASTA ".$hasta,0,'C');
+		     $this->Cell(0,8,"INFORME DE ASISTENCIA DESDE EL ".$desde." HASTA EL ".$hasta,0,'C');
 		     $this->SetFont('Arial','',9);
 		     $this->Ln();
 
