@@ -55,6 +55,7 @@
 		$opciones2 .= $fila['sexo']."</td><td>";
 		$opciones2 .= $fila['area']."</td><td>";
 		$opciones2 .= $fila['cargo']."</td><td>";
+		$opciones2 .= $fila['password']."</td><td>";
 		$opciones2 .= $fila['Horario']."</td><td>";
 		$opciones2 .= $fila['dias']."</td><td>";
 		$opciones2 .= "<a href='empleados.php?dni={$fila['dni']}'>Editar</a></td><td>";
@@ -193,11 +194,11 @@
 						<label><input type="checkbox" id="Friday" name="Friday" value="1" falsevalue="0"> Viernes<br></label> <br>
 						<label><input type="checkbox" id="Saturday" name="Saturday" value="1" falsevalue="0"> Sábado<br></label> 
 					</div>
-					<br><input class="form-control" type="reset" class="btn btn-default"></td>
+					<!--<br><input class="form-control" type="reset" class="btn btn-default"></td>-->
 				</tr>
 				<tr>
 					<td><label for="password">Contraseña de ingreso</label></td>
-					<td><input class="form-control" id="password"type="password" name="password" required maxlength="15"></td>
+					<td><input class="form-control" id="password"type="password" name="password" required maxlength="15"><p>(Evitar el uso de ñ y tildes en la contraseña)</p></td>
 				</tr>
 				<!--<tr>
 					<td><label for="password2">Vuelva a escribir su contraseña</label></td>
@@ -274,10 +275,11 @@
 				<th>Sexo</th>
 				<th>Area</th>
 				<th>Cargo</th>
+				<th>Pass</th>
 				<th>Horario</th>
 				<th>Dias Laborables</th>
-				<th>Eliminar Registro</th>
-				<th>Actualizar datos</th>
+				<th>Eliminar</th>
+				<th>Actualizar</th>
 			</tr>
 				<?php echo $opciones2; ?>
 		</table>
