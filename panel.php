@@ -1,13 +1,17 @@
+<?php
+	session_start();
+	if ($_SESSION['login'] != true) {
+	 	header("Location:index.php");
+	 } 
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
 	<title>Panel de Administración</title>
 	<link rel="stylesheet" href="normalize.css">
-	<link href="css/bootstrap.min.css" rel="stylesheet">
-	<link href="css/starter-template.css" rel="stylesheet">
 	<link href="css/panel.css" rel="stylesheet">
-	<script src="js/jquery-1.11.2.min.js"type="text/javascript"></script>
+	<link href="css/bootstrap.css" rel="stylesheet">
 </head>
 <body>
 	<header>
@@ -22,12 +26,11 @@
 				<li><a href="index.php">Inicio</a></li>
 				<li><a href="editar.php">Edicion y Reporte de Registros</a></li>
 				<li><a href="empleados.php">Gestionar Personal</a></li>
+				<li><a href="scripts/cerrar_sesion.php">Cerrar Sesion</a></li>
 			</nav>
 		</div>
 	</header>
-
 	<section>
-		
 	</section>
 </body>
 </html>

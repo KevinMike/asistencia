@@ -9,11 +9,13 @@
 	if (mysqli_connect_errno()) {
 	    die("Error al conectar: ".mysqli_connect_error());
 	}
+	
 	#Conexion procedimental
 	$link = mysqli_connect($servidor,$usuario,$password,$bd_name);
-		/* comprobar conexión */
+	/* comprobar conexión */
 	if (mysqli_connect_errno()) {
 	    printf("Conexión fallida: %s\n", mysqli_connect_error());
 	    exit();
 	}
+	
 ?>

@@ -141,7 +141,7 @@
 		    while($linea=mysql_fetch_array($data))
 		    {
 		    	 for ($i=0; $i < count($header) ; $i++) { 
-			        $this->Cell($w[$i],6,$linea[$i],'LR',0,'C',$fill);
+			        $this->Cell($w[$i],6,utf8_decode($linea[$i]),'LR',0,'C',$fill);
 			        		    	 
 			    }
 			    $this->Ln();
@@ -169,10 +169,11 @@
 	$hasta = $_REQUEST['hasta'];
 	$dni = $_REQUEST['dni'];
 	$query = "select * from V_empleados where dni = '{$dni}'";
+	mysql_query("SET NAMES 'utf8'");
 	$datos = mysql_query($query);
 	$personales = mysql_fetch_array($datos);
 
-	$query = "call SP_Ver_Reporte('{$dni}','{$desde}','{$hasta}')";
+	$query = "call SP_Ver_Reporte2('{$dni}','{$desde}','{$hasta}')";
 	$resultado = mysql_query($query);
 
 	$pdf = new PDF();
@@ -184,7 +185,7 @@
 	$pdf->AliasNbPages();
 	$pdf->SetFont('Arial','',9);
 	$pdf->AddPage();
-	$pdf->FancyTable($header, $w, $resultado,$personales,date_format($desde1,'d/m/Y'),date_format($hasta1,'d/m/Y'));
+	$pdf->FancyTable($header, $w,$resultado,$personales,date_format($desde1,'d/m/Y'),date_format($hasta1,'d/m/Y'));
 	//$pdf->ImprovedTable($header, $w, $resultado);
 	$pdf->Output();
 ?>

@@ -5,4 +5,5 @@
 		die('Error en la conexion : '.mysql_error());
 	}
 	mysql_select_db('control_asistencia',$enlace);
+	//mysql_query("SET NAMES 'utf8'");
 ?>

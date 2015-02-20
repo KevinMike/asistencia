@@ -1,3 +1,9 @@
+<?php
+	session_start();
+	if ($_SESSION['login'] != true) {
+	 	header("Location:index.php");
+	 } 
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,6 +26,7 @@
 				<li><a href="index.php">Inicio</a></li>
 				<li><a href="editar.php">Edicion y Reporte de Registros</a></li>
 				<li><a href="empleados.php">Gestionar Personal</a></li>
+				<li><a href="scripts/cerrar_sesion.php">Cerrar Sesion</a></li>
 			</nav>
 		</div>
 	</header>

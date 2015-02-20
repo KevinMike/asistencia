@@ -37,13 +37,35 @@
 				if($var['num'] == 1) 
 				{
 					include('conexion2.php');
-					$query = "CALL SP_IngresarDNI('{$dni}')";
-					$resultado = mysqli_query($link,$query);
-					if (!$resultado) {
-						die("No se pudo registrar : ".mysqli_error());
+					$query = "call SP_puntualidad('{$dni}')";
+					$resultado5 = mysqli_query($link,$query);
+					if (!$resultado5) {
+						die("No se pudo registrar : ".mysqli_error($link));
 					}
-					mysqli_close($link);
-					echo '<script language="javascript">alert("REGISTRO EXITOSO");location.href="../index.php";</script>';		
+					$fila = mysqli_fetch_array($resultado5);
+					switch ($fila['num'])
+					{
+						case '1':
+							$query = "CALL SP_IngresarDNI('{$dni}')";
+							//$resultado = mysqli_query($link,$query);
+							if (!$mysqli->multi_query($query)) {
+							    echo "Multi query failed: (" . $mysqli->errno . ") " . $mysqli->error;
+							}
+							/*if (!$resultado) {
+								die("No se pudo registrar : ".mysqli_error($link));
+							}*/
+							mysqli_close($link);
+							echo '<script language="javascript">alert("REGISTRO EXITOSO");location.href="../index.php";</script>';
+							break;
+						case '2':
+							mysqli_close($link);
+							echo '<script language="javascript">alert("NO SE PUDO REGISTRAR SU ASISTENCIA, SU HORA DE ENTRADA ES '.$fila['llegada'].'");location.href="../index.php";</script>';
+							break;
+						case '3':
+							mysqli_close($link);
+							echo '<script language="javascript">alert("NO PUEDE SALIR ANTES DE LAS '.$fila['salida'].'");location.href="../index.php";</script>';
+							break;
+					}
 				}
 				else
 				{
@@ -60,3 +82,14 @@
 		echo '<script language="javascript">alert("ERROR, Vulelva a intentarlo");javascript:window.history.back();</script>';
 	}
 ?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<script src="..\js\smoke.js-master\smoke.js"></script>
+	<script src="..\js\smoke.js-master\smoke.min.js"></script>
+</head>
+<body>
+	
+</body>
+</html>

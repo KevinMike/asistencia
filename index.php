@@ -1,3 +1,19 @@
+<?php
+	session_start();
+	if (!empty($_SESSION['login'])) {
+		if ($_SESSION['login'] == true) {
+		 	$next = "window.location.href='panel.php'";
+		 } 
+		 else
+		 {
+		 	$next = "toggle_element('.formulario',1000)";
+		 }
+	}
+	else
+	{
+		$next = "toggle_element('.formulario',1000)";
+	}
+?>
 <html> 
 <head> 
    <meta charset="UTF-8">
@@ -5,6 +21,7 @@
 	<link href="css/normalize.css" rel="stylesheet">
    	<link href="css/bootstrap.min.css" rel="stylesheet">
    	<link href="css/index.css" rel="stylesheet">
+   	<script src="js/jquery-2.1.3.js"type="text/javascript"></script>
 	<link href='http://fonts.googleapis.com/css?family=Droid+Serif' rel='stylesheet' type='text/css'>
 	<script language="JavaScript"> 
 		function mueveReloj(){ 
@@ -30,9 +47,33 @@
 
 <body onload="mueveReloj()" > 
 	<header>
-		<img src="img/inei.png" height="50px" alt="">
+		<img class="logo" src="img/inei.png" height="50px" alt="">
 		<h1>SISTEMA DE CONTROL DE ASISTENCIA</h1>
+		<nav><a onclick="<?php echo $next; ?>" name="motrarlogin" ><img src="img/icon.png" alt="">Panel de Administración</a></nav>
+		<script type="text/javascript">
+			$(document).ready(function(){
+				$('.formulario').toggle();
+				$("dni").focus();
+			});
+			function toggle_element(element,speed){
+				$(element).toggle(speed);
+			}
+		</script>
 	</header>
+	<div class="formulario">
+		<form  role="form" name="login" id="login" action="scripts/login.php" method="POST">
+			<div class="form-group">
+				<label for="user">Usuario : </label>
+				<input class="form-control" type="text" name="user" placeholder="Usuario"  maxlength="15">
+			</div>
+			<div class="form-group">
+				<label for="password">Contraseña : </label>
+				<input class="form-control" type="password" name="password" placeholder="Contraseña"  maxlength="15">
+			</div>
+			<input type="submit" class="btn btn-info" value="Login">
+			<input type="reset" class="btn btn-warning" value="Limpiar">
+		</form>
+	</div>
 	<div class="contenedor">
 		<div class="datos">
 			<form id="form_reloj"name="form_reloj"> 
@@ -55,28 +96,6 @@
 					<input class="btn btn-primary" type="reset">
 	   			</div>
 	   		</form>
-		<!--
-		   	<div class="container">
-		        <h3>Formulario</h3>
-		        <form action="./formulario" method="get" >
-		            <div class="control-group">
-		                <h4>Rellene sus datos</h4>
-		                <div class="control-group">
-		                    <div class="controls">
-		                        <input type="text" name="usuario" placeholder="Usuario">
-		                    </div>
-		                </div>
-		                <div class="controls">
-		                    <input type="password" name="passw" placeholder="Contrase&ntilde;a" />
-		                    <label class="checkbox">
-		                        <input type="checkbox" name="recordar" value="recordar">Recordarme
-		                    </label>
-		                </div>
-		            </div>
-		            <input type="submit" class="btn btn-primary" value="Enviar"/>
-		        </form>
-		    </div>
-		-->
 		</div>
 	   <iframe src="empleados_presentes.php" frameborder="0" width="100%"></iframe>
    </div>
