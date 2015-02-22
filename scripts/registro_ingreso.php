@@ -168,7 +168,7 @@
 				  closeOnConfirm: false,
 				  html: false
 				}, function(){
-					window.history.back();
+					location.href="../index.php";
 				});</script>';
 			//echo "<script language='javascript'> location.href='../mensaje.php'; </script>";
 		}

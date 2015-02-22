@@ -1,5 +1,4 @@
 <?php
-	include('conexion.php');
 	//Declarar variables como string
 	$llegada = "";
 	$suspender = "";
@@ -14,13 +13,27 @@
 	$query ="";
 	if (!empty($suspender) && !empty($regreso) )
 	{
-		echo "variables intermedias con datos";
+		
+		//echo "variables intermedias con datos";
 		if ( $salida > $regreso && $regreso > $suspender && $suspender > $llegada)
 		{
-			$query = "call SP_Ingresar_Horario({$cod_horario},'{$llegada}','{$suspender}','{$regreso}','{$salida}')";
-				mysql_query($query);
+			if ($cod_horario > 0) {
+				include('conexion.php');
+				$query = "call SP_Ingresar_Horario({$cod_horario},'{$llegada}','{$suspender}','{$regreso}','{$salida}')";
+				echo $query;
+				mysql_query($query)  or die("Error : ".mysql_error());
 				mysql_close();
 				header('Location:../horario.php');
+			}
+			else
+			{
+				include('conexion.php');
+				$query = "call SP_Ingresar_Horario(0,'{$llegada}','{$suspender}','{$regreso}','{$salida}')";
+				echo $query;
+				mysql_query($query)  or die("Error : ".mysql_error());
+				mysql_close();
+				header('Location:../horario.php');
+			}
 		}
 		else{
 			echo '<script language="javascript">alert("ERROR AL LLENAR LOS DATOS"); javascript:window.history.back();</script>';
@@ -28,12 +41,25 @@
 	}
 	else
 	{
-		echo "variables intermedias sin datos";
+		//echo "variables intermedias sin datos";
 		if ((empty($suspender) && empty($regreso)) && $salida > $llegada) {
-				$query = "call SP_Ingresar_Horario(0,'{$llegada}',null,null,'{$salida}')";	
-				mysql_query($query);
+			if ($cod_horario > 0) {
+				include('conexion.php');
+				$query = "call SP_Ingresar_Horario({$cod_horario},'{$llegada}',null,null,'{$salida}')";	
+				echo $query;
+				mysql_query($query) or die("Error : ".mysql_error());
 				mysql_close();
 				header('Location:../horario.php');
+			}
+			else
+			{
+				include('conexion.php');
+				$query = "call SP_Ingresar_Horario(0,'{$llegada}',null,null,'{$salida}')";	
+				echo $query;
+				mysql_query($query) or die("Error : ".mysql_error());
+				mysql_close();
+				header('Location:../horario.php');
+			}
 		}
 		else
 		{

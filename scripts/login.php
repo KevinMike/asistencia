@@ -10,10 +10,12 @@
 	{
 		session_start();
 		$_SESSION['login'] = true;
+		mysql_close();
 		header("Location:../panel.php");
 	}
 	else
 	{
+		mysql_close();
 		header("Location:../index.php");
 	}
 ?>	

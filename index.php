@@ -53,7 +53,8 @@
 		<script type="text/javascript">
 			$(document).ready(function(){
 				$('.formulario').toggle();
-				$("dni").focus();
+				$("#dni").focus();
+				//$("#busqueda").focus();
 			});
 			function toggle_element(element,speed){
 				$(element).toggle(speed);
@@ -85,15 +86,15 @@
 					<h4>Rellene sus datos</h4>
 					<div class="controls">
 						<!--<label for="dni">Ingrese su numero de DNI : </label>-->
-						<input type="text" name="dni" required placeholder="DNI" maxlength="8">
+						<input type="text" id ="dni" name="dni" required placeholder="DNI" maxlength="8">
 					</div>
 					<div class="controls">
 						<!--<label for="password">Contraseña : </label>-->
-						<input type="password" name="password" required placeholder="Contraseña"maxlength="15">
+						<input type="password" id = "password" name="password" required placeholder="Contraseña"maxlength="15">
 					</div>
 					<br>
-					<input type="submit" class="btn btn-success">
-					<input class="btn btn-primary" type="reset">
+					<input type="submit" class="btn btn-success" value="Registrar">
+					<input class="btn btn-primary" type="reset" value="Limpiar">
 	   			</div>
 	   		</form>
 		</div>

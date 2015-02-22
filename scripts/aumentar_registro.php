@@ -4,7 +4,7 @@
 	$dni = $_GET['dni'];
 	$fecha = $_GET['fecha']	;
 	$query = "select if((select h.suspende from horario h inner join asignacion a on a.horario_cod_horario = h.cod_horario where a.personal_dni = '{$dni}') is not null,1,0) as num";
-	$resultado = mysql_query($query);
+	$resultado = mysql_query($query) or die("Error : ".mysql_error());
 	$fila = mysql_fetch_array($resultado);
 	if ($fila['num'] == 1) {
 		$query = "insert into registro(hora_llegada,hora_salida,estado,personal_dni) values('{$fecha}','{$fecha}',0,'{$dni}');";

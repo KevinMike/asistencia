@@ -1,11 +1,6 @@
 <?php
 	# Conectamos con MySQL
-	$mysqli=new mysqli("127.0.0.1:3306","root","","control_asistencia");
-	if (mysqli_connect_errno()) 
-	{
-	    die("Error al conectar: ".mysqli_connect_error());
-	}
-	//include('conexion.php');
+	include('conexion2.php');
 	$dni = $_POST['DNI'];
 	$nombre = $_POST['nombre'];
 	$apellido = $_POST['apellido'];

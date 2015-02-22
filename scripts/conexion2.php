@@ -3,7 +3,7 @@
 	$servidor = "127.0.0.1:3306";
 	$usuario = "root";
 	$password = "";
-	$bd_name ="control_asistencia";
+	$bd_name ="asistencia";
 	#Conexion Orientada a Objetos
 	$mysqli=new mysqli($servidor,$usuario,$password,$bd_name);
 	if (mysqli_connect_errno()) {

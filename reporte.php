@@ -168,9 +168,9 @@
 	$desde = $_REQUEST['desde'];
 	$hasta = $_REQUEST['hasta'];
 	$dni = $_REQUEST['dni'];
-	$query = "select * from V_empleados where dni = '{$dni}'";
-	mysql_query("SET NAMES 'utf8'");
-	$datos = mysql_query($query);
+	//mysql_query("SET NAMES 'utf8'");
+	$query = " select * from V_empleados where dni = '{$dni}'";
+	$datos = mysql_query($query) or die("Error".mysql_error());
 	$personales = mysql_fetch_array($datos);
 
 	$query = "call SP_Ver_Reporte2('{$dni}','{$desde}','{$hasta}')";

@@ -13,7 +13,7 @@
 		$dni = $_GET['dni'];
 		//$query = "call SP_Ver_Registro('{$dni}',STR_TO_DATE('{$desde}','%d-%m-%Y'),STR_TO_DATE('{$hasta}','%d-%m-%Y'))";
 		$query = "call SP_Ver_Registro2('{$dni}','{$desde}','{$hasta}')";
-		$resultado = mysql_query($query);
+		$resultado = mysql_query($query) or die("Error en SP_Ver_Registro2".mysql_error());
 		$opciones = "";
 		while ($fila = mysql_fetch_array($resultado)) 
 		{

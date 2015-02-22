@@ -5,10 +5,10 @@
 	 } 
 	include("scripts/conexion.php");
 	//Seleccionar los valores para el select area
-	$resultado = mysql_query('select * from area',$enlace);
+	$resultado = mysql_query('select * from area',$enlace) or die("Error : ".mysql_error());
 	if(!$resultado)
 	{
-		die('No se pudo realizar la consulta : '.mysql_error());
+		die('No se pudo realizar la consulta : '.mysql_error()) ;
 	}
 	$opciones = "";
 	while ($fila = mysql_fetch_array($resultado)) 
@@ -18,7 +18,7 @@
 		$opciones .= '</opcion>';
 	}
 	//Seleccionar los valores de los horarios
-	$resultado = mysql_query('select * from V_horarios',$enlace);
+	$resultado = mysql_query('select * from V_horarios',$enlace) or die("Error : ".mysql_error());
 	if(!$resultado)
 	{
 		die('No se pudo realizar la consulta : '.mysql_error());
@@ -31,7 +31,7 @@
 		$opciones1 .= '</opcion>';
 	}
 	//Imprimir los valores de la tabla empleados
-	$resultado = mysql_query('select * from V_empleados',$enlace);
+	$resultado = mysql_query('select * from V_empleados',$enlace) or die("Error : ".mysql_error());
 	if(!$resultado)
 	{
 		die('No se pudo realizar la consulta : '.mysql_error());
@@ -68,7 +68,7 @@
 	// traemos la noticia
 		$aviso= "<B><h4>EDITANTO AL EMPLEADO DE DNI <b>".$_GET['dni']."</h4>";
 		$query = "select * from V_edicion_empleados where dni = '{$_GET['dni']}' Limit 1";
-		$respuesta = mysql_query($query);
+		$respuesta = mysql_query($query) or die("Error : ".mysql_error());
 		while ($fila = mysql_fetch_array($respuesta)) 
 		{
 			echo "<script type='text/javascript'>var dni =  ".$fila['dni'].";</script>";
