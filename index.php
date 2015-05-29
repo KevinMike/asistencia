@@ -22,7 +22,6 @@
    	<link href="css/bootstrap.min.css" rel="stylesheet">
    	<link href="css/index.css" rel="stylesheet">
    	<script src="js/jquery-2.1.3.js"type="text/javascript"></script>
-	<link href='http://fonts.googleapis.com/css?family=Droid+Serif' rel='stylesheet' type='text/css'>
 	<script language="JavaScript"> 
 		function mueveReloj(){ 
 		   	momentoActual = new Date() 
@@ -48,13 +47,12 @@
 <body onload="mueveReloj()" > 
 	<header>
 		<img class="logo" src="img/inei.png" height="50px" alt="">
-		<h1>SISTEMA DE CONTROL DE ASISTENCIA</h1>
+		<h1>CONTROL DE ASISTENCIA</h1>
 		<nav><a onclick="<?php echo $next; ?>" name="motrarlogin" ><img src="img/icon.png" alt="">Panel de Administración</a></nav>
 		<script type="text/javascript">
 			$(document).ready(function(){
 				$('.formulario').toggle();
 				$("#dni").focus();
-				//$("#busqueda").focus();
 			});
 			function toggle_element(element,speed){
 				$(element).toggle(speed);

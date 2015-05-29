@@ -75,22 +75,8 @@
 								if (!$mysqli->multi_query($query)) {
 								    echo "Multi query failed: (" . $mysqli->errno . ") " . $mysqli->error;
 								}
-								/*if (!$resultado) {
-									die("No se pudo registrar : ".mysqli_error($link));
-								}*/
 								mysqli_close($link);
-								//echo '<script language="javascript">alert("REGISTRO EXITOSO");location.href="../index.php";</script>';
-								echo  '<script language="javascript">	sweetAlert({
-								  title: "REGISTRO EXITOSO",
-								  text: "Tenga un buen día",
-								  type: "success",
-								  confirmButtonColor: "#64FE2E",
-								  confirmButtonText: "Aceptar",
-								  closeOnConfirm: false,
-								  html: false
-								}, function(){
-									location.href="../index.php";
-								});</script>';
+								header("Location:mensaje.php");
 								break;
 							case '2':
 								mysqli_close($link);

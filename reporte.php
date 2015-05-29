@@ -146,7 +146,7 @@
 			    }
 			    $this->Ln();
 		    }
-			    
+			 mysql_close();
 		    // Línea de cierre
 		    $this->Cell(array_sum($w),0,'','T');
 		}
@@ -168,7 +168,7 @@
 	$desde = $_REQUEST['desde'];
 	$hasta = $_REQUEST['hasta'];
 	$dni = $_REQUEST['dni'];
-	//mysql_query("SET NAMES 'utf8'");
+	mysql_query("SET NAMES 'utf8'");
 	$query = " select * from V_empleados where dni = '{$dni}'";
 	$datos = mysql_query($query) or die("Error".mysql_error());
 	$personales = mysql_fetch_array($datos);

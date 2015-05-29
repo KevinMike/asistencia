@@ -11,6 +11,10 @@
 	$motivo = $_POST['motivo'];
 	$desde = $_POST['desde'];
 	$hasta = $_POST['hasta'];
+	echo $codigo1." - ".$hora_llegada." - ".$suspende;
+	echo "<br>";
+	echo $codigo2." - ".$regresar." - ".$hora_salida;
+	echo "<br>";
 	//Verificar si es un horario con intermedio o sin intermedio
 	if(empty($codigo2))
 	{
@@ -26,14 +30,14 @@
 		$query = "select if((select h.suspende from horario h inner join asignacion a on a.horario_cod_horario = h.cod_horario where a.personal_dni = '{$dni}') is not null,1,0) as bit";
 		$result = mysql_query($query);
 		$fila = mysql_fetch_array($result);
-		if($fila['bit'] == '1')
+		/*if($fila['bit'] == '1')
 		{
 			echo "Tiene doble turno";
 			$hora_salida = $suspende;
 			if (!empty($suspende)) {
 				$estado = 0;
 			}
-		}
+		}*/
 		$query = "update registro set hora_llegada = '{$fecha} ".$hora_llegada."',hora_salida = '{$fecha} ".$hora_salida."',estado = {$estado} where cod_registro = ".$codigo1." ;";
 		echo $query;
 		mysql_query($query,$enlace) or die("Error en: " . mysql_error());

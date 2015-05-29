@@ -86,7 +86,7 @@
 			echo "<script type='text/javascript'>var Thursday = '".$fila['Thursday']."';</script>";
 			echo "<script type='text/javascript'>var Friday =  ".$fila['Friday'].";</script>";
 			echo "<script type='text/javascript'>var Saturday = '".$fila['Saturday']."';</script>";
-			//echo "<script type='text/javascript'>$(document).ready(function(){$('#DNI').val(dni);$('#nombre').val(nombre);$('#apellido').val(apellido);$('#fecha_nacimiento').val(fecha_nacimiento);$('#sexo').val(sexo);$('#area').val(area);$('#cargo').val(cargo);$('#horario').val(Horario);});</script>"
+			echo "<script type='text/javascript'>var password = '".$fila['password']."';</script>";
 		}
 	}
 	else
@@ -99,6 +99,14 @@
 		echo "<script type='text/javascript'>var area =  '';</script>";
 		echo "<script type='text/javascript'>var cargo = '';</script>";
 		echo "<script type='text/javascript'>var Horario = '';</script>";
+		echo "<script type='text/javascript'>var password = '';</script>";
+		echo "<script type='text/javascript'>var Sunday = false;</script>";
+		echo "<script type='text/javascript'>var Monday = false ;</script>";
+		echo "<script type='text/javascript'>var Tuesday = false;</script>";
+		echo "<script type='text/javascript'>var Wednesday = false;</script>";
+		echo "<script type='text/javascript'>var Thursday = false;</script>";
+		echo "<script type='text/javascript'>var Friday =  false;</script>";
+		echo "<script type='text/javascript'>var Saturday = false;</script>";
 	}
 	mysql_close();
 ?>
@@ -141,7 +149,16 @@
 					$('#sexo').val(sexo);
 					$('#area').val(area);
 					$('#cargo').val(cargo);
+					$('#password').val(password);
 					$('#horario').val(Horario);
+					/*$("#Sunday").prop("checked", Sunday);
+					$("#Monday").prop("checked", Monday);
+					$("#Tuesday").prop("checked", Tuesday);
+					$("#Wednesday").prop("checked", Wednesday);
+					$("#Thursday").prop("checked", Thursday);
+					$("#Friday").prop("checked", Friday);
+					$("#Saturday").prop("checked", Saturday);*/
+					//$("#area option[value='"+ area +"']").attr("selected",true);
 				});
 			</script>
 		<form class="form-horizontal" role="form" action="scripts/registro_empleado.php" method="POST" enctype="multipart/form-data">
