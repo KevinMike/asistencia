@@ -44,8 +44,7 @@
 	}
 	mysql_free_result($resultado2);
 	//Verificando la consistencia de los datos
-//	if (!empty($pass)) {
-
+	if (!empty($pass)) {
 
 		if ($password === $pass and $dni===$doc ) 
 		{
@@ -158,5 +157,19 @@
 				});</script>';
 			//echo "<script language='javascript'> location.href='../mensaje.php'; </script>";
 		}
-	//}
+	}
+	else
+	{
+		echo '<script language="javascript">sweetAlert({
+			title: "ERROR",
+			text: "El usuario ingresado no está registrado",
+			type: "warning",
+			confirmButtonColor: "#DD6B55",
+			confirmButtonText: "Aceptar",
+			closeOnConfirm: false,
+			html: false
+		  }, function(){
+			  location.href="../index.php";
+		  });</script>';
+	}
 ?>

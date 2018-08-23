@@ -111,7 +111,9 @@
 		     $this->Cell(67,5,$data2['cargo'],0,'LR');
 		     $this->Ln();
 		     $this->Cell(27,5,"Horario : ",0,'LR');
-		     $this->Cell(160,5,$data2['Horario'],0,'LR');
+			 $this->Cell(73,5,$data2['Horario'],0,'LR');
+			 $this->Ln();
+		     $this->Cell(27,5,$data2['HorasAcumuladas']." horas acumuladas",0,'LR');
 		     $this->Ln(10);
 		     $this->SetFont('Arial','B',12);
 		     $this->Cell(0,8,"INFORME DE ASISTENCIA DESDE EL ".$desde." HASTA EL ".$hasta,0,'C');
@@ -172,14 +174,20 @@
 	$query = " select * from V_empleados where dni = '{$dni}'";
 	$datos = mysql_query($query) or die("Error".mysql_error());
 	$personales = mysql_fetch_array($datos);
-
 	$query = "call SP_Ver_Reporte2('{$dni}','{$desde}','{$hasta}')";
 	$resultado = mysql_query($query);
 
+	$horasAcumuladas = 0;
+	while ($row = mysql_fetch_array($resultado)){
+		$horasAcumuladas += (int)$row["horas"];
+	}
+	$personales["HorasAcumuladas"] = $horasAcumuladas;
+	mysql_data_seek($resultado, 0);
+
 	$pdf = new PDF();
 	// Títulos de las columnas
-	$header = array('Fecha', 'Hora de Llegada', 'Salida para Almorzar', 'Regreso de Almorzar','Hora de Salida','Permiso');
-	$w = array(20, 25, 32, 35,25,50);
+	$header = array('Fecha', 'Hora de Llegada', 'Salida para Almorzar', 'Regreso de Almorzar','Hora de Salida','Permiso',"Horas");
+	$w = array(20, 25, 32, 35,25,40,10);
 	$desde1 = date_create($desde);
 	$hasta1 = date_create($hasta);
 	$pdf->AliasNbPages();
