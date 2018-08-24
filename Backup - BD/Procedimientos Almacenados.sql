@@ -591,6 +591,8 @@ call SP_cantidad_registros_2('71025849','2015-02-28')
 -- ---------------------------------------------------------------------------------------------------------
 
 -- Ver registro de asistencia mejorado
+
+-- Ver registro de asistencia mejorado
 drop procedure if exists SP_Ver_Reporte2;
  DELIMITER //
 create procedure SP_Ver_Reporte2
@@ -611,7 +613,8 @@ BEGIN
 		regresar time,
 		hora_salida time,
 		cod_permiso int,
-		motivo text );
+		motivo text,
+        horas float);
 	set @fecha = fecha_inicio;
     set @d1 = (select Sunday from horario h inner join asignacion a on a.horario_cod_horario = h.cod_horario where a.personal_dni = dni);
     set @d2= (select Monday from horario h inner join asignacion a on a.horario_cod_horario = h.cod_horario where a.personal_dni = dni);
@@ -648,8 +651,13 @@ BEGIN
 										set @salida = (SELECT hora_salida from registro where registro.personal_dni = dni and date(hora_llegada) = @fecha limit 1,1);
 										set @cod_permiso = (SELECT cod_permiso from permisos where date(fecha_permiso) = @fecha and personal_dni = dni);
 										set @motivo = (select motivo from permisos where date(fecha_permiso)  = @fecha and personal_dni = dni);
+                                        if (@salida) is not null then
+											set @horas = time_to_sec(timediff( @salida, @regreso)) / 3600 + time_to_sec(timediff( @receso, @llegada)) / 3600;
+                                        else
+											set @horas = time_to_sec(timediff( @receso, @llegada)) / 3600;
+                                        end if;
 										-- INSECION EN LA TABLA TEMPORAL
-										insert into temp values (@codigo1,@codigo2,@fecha_2,@llegada,@receso,@regreso,@salida,@cod_permiso,@motivo);
+										insert into temp values (@codigo1,@codigo2,@fecha_2,@llegada,@receso,@regreso,@salida,@cod_permiso,@motivo,ROUND(@horas,2));
 									else
 										-- reuperando datos
 										set @codigo1 = (SELECT cod_registro from registro where personal_dni = dni and date(hora_llegada) = @fecha limit 1);
@@ -661,8 +669,14 @@ BEGIN
 										set @salida = (SELECT hora_salida from registro where registro.personal_dni = dni and date(hora_llegada) = @fecha limit 1,1);
 										set @cod_permiso = (SELECT cod_permiso from permisos where date(fecha_permiso) = @fecha and personal_dni = dni);
 										set @motivo = (select motivo from permisos where date(fecha_permiso)  = @fecha and personal_dni = dni);
+                                        if (@receso) is not null then
+											set @horas  = time_to_sec(timediff( @receso, @llegada)) / 3600;
+										else
+											set @horas = 0;
+										end if;
+                                        
 										-- INSERCION EN LA TABLE TEMPORAL
-										insert into temp values (@codigo1,@codigo2,@fecha_2,@llegada,@receso,@regreso,@salida,@cod_permiso,@motivo);
+										insert into temp values (@codigo1,@codigo2,@fecha_2,@llegada,@receso,@regreso,@salida,@cod_permiso,@motivo,ROUND(@horas,2));
 									END IF;
 				else 
 					-- reuperando datos
@@ -680,24 +694,31 @@ BEGIN
 									where r.personal_dni = dni and date(hora_llegada) = @fecha);
 					set @motivo = (select motivo from registro r left join permisos p on (fecha_permiso = date(hora_llegada) and p.personal_dni = r.personal_dni)
 									where r.personal_dni = dni and date(hora_llegada) = @fecha);
+					if (@salida) is not null then
+						set @horas = time_to_sec(timediff( @salida, @llegada)) / 3600;
+					else
+						set @horas = 0;
+					end if;
+                    
 					-- INSERCION DE DATOS EN LA TABLA TEMPORAL
-					insert into temp values (@codigo1,@codigo2,@fecha_2,@llegada,@receso,@regreso,@salida,@cod_permiso,@motivo);
+					insert into temp values (@codigo1,@codigo2,@fecha_2,@llegada,@receso,@regreso,@salida,@cod_permiso,@motivo,ROUND(@horas,2));
 				END IF;
 			else 
 				-- INSERCION DE LOS DATOS EN CASO NO HAYA REGISTROS
-				insert into temp values(null,null,@fecha,null,null,null,null,null,null);
+				insert into temp values(null,null,@fecha,null,null,null,null,null,null,0);
 			END IF;
 		end if;
 	set @fecha = adddate(@fecha,1);
 	END WHILE;
     -- COMPRUEBA SI TIENE EL HORARIO TIENE UNA ENTRADA O 2 ENTRADAS
 	if (select h.suspende from horario h inner join asignacion a on a.horario_cod_horario = h.cod_horario where a.personal_dni = dni) is not null then
-		select date_format(fecha,'%d %b %Y'),time_format(hora_llegada,"%r"),time_format(suspende,"%r"),time_format(regresar,"%r"),time_format(hora_salida,"%r"),motivo from temp ORDER BY fecha asc;
+		select date_format(fecha,'%d %b %Y'),time_format(hora_llegada,"%r"),time_format(suspende,"%r"),time_format(regresar,"%r"),time_format(hora_salida,"%r"),motivo,horas from temp ORDER BY fecha asc;
 	else
-		select DATE_FORMAT(date(fecha),'%d %b %Y') as fecha,TIME_FORMAT(time(hora_llegada), "%r") as hora_llegada , 'No tiene' as suspende,'No tiene' as regresar, TIME_FORMAT(time(hora_salida),"%r") as hora_salida ,motivo  from temp ORDER BY fecha asc;
+		select DATE_FORMAT(date(fecha),'%d %b %Y') as fecha,TIME_FORMAT(time(hora_llegada), "%r") as hora_llegada , 'No tiene' as suspende,'No tiene' as regresar, TIME_FORMAT(time(hora_salida),"%r") as hora_salida ,motivo,horas  from temp ORDER BY fecha asc;
     end if;
 END //;    
 DELIMITER ;
+
 
 -- ---------------------------------------------------------------------------------------------------------
 
