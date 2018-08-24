@@ -21,7 +21,7 @@ BEGIN
 		hora_salida time,
 		cod_permiso int,
 		motivo text,
-        horas int);
+        horas float);
 	set @fecha = fecha_inicio;
     set @d1 = (select Sunday from horario h inner join asignacion a on a.horario_cod_horario = h.cod_horario where a.personal_dni = dni);
     set @d2= (select Monday from horario h inner join asignacion a on a.horario_cod_horario = h.cod_horario where a.personal_dni = dni);
@@ -64,7 +64,7 @@ BEGIN
 											set @horas = time_to_sec(timediff( @receso, @llegada)) / 3600;
                                         end if;
 										-- INSECION EN LA TABLA TEMPORAL
-										insert into temp values (@codigo1,@codigo2,@fecha_2,@llegada,@receso,@regreso,@salida,@cod_permiso,@motivo,@horas);
+										insert into temp values (@codigo1,@codigo2,@fecha_2,@llegada,@receso,@regreso,@salida,@cod_permiso,@motivo,ROUND(@horas,2));
 									else
 										-- reuperando datos
 										set @codigo1 = (SELECT cod_registro from registro where personal_dni = dni and date(hora_llegada) = @fecha limit 1);
@@ -83,7 +83,7 @@ BEGIN
 										end if;
                                         
 										-- INSERCION EN LA TABLE TEMPORAL
-										insert into temp values (@codigo1,@codigo2,@fecha_2,@llegada,@receso,@regreso,@salida,@cod_permiso,@motivo,@horas);
+										insert into temp values (@codigo1,@codigo2,@fecha_2,@llegada,@receso,@regreso,@salida,@cod_permiso,@motivo,ROUND(@horas,2));
 									END IF;
 				else 
 					-- reuperando datos
@@ -108,7 +108,7 @@ BEGIN
 					end if;
                     
 					-- INSERCION DE DATOS EN LA TABLA TEMPORAL
-					insert into temp values (@codigo1,@codigo2,@fecha_2,@llegada,@receso,@regreso,@salida,@cod_permiso,@motivo,@horas);
+					insert into temp values (@codigo1,@codigo2,@fecha_2,@llegada,@receso,@regreso,@salida,@cod_permiso,@motivo,ROUND(@horas,2));
 				END IF;
 			else 
 				-- INSERCION DE LOS DATOS EN CASO NO HAYA REGISTROS

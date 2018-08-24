@@ -179,7 +179,7 @@
 
 	$horasAcumuladas = 0;
 	while ($row = mysql_fetch_array($resultado)){
-		$horasAcumuladas += (int)$row["horas"];
+		$horasAcumuladas += $row["horas"];
 	}
 	$personales["HorasAcumuladas"] = $horasAcumuladas;
 	mysql_data_seek($resultado, 0);
